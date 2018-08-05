@@ -31,6 +31,13 @@ export default class Onboarding extends Component {
         error: null
       });
       const web3 = await wallet.getWeb3();
+
+      //Wallet test part
+      web3.eth.getAccounts().then((result) => {
+        console.log(result);
+      });
+      //Wallet
+
       const accounts = await new Promise((resolve, reject) => {
         web3.eth.getAccounts((error, accounts) => {
           if (error) reject(error);

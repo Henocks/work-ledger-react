@@ -5,8 +5,13 @@ import ProviderEngine from "web3-provider-engine";
 import FetchSubprovider from "web3-provider-engine/subproviders/fetch";
 
 // configuration can be overrided by env variables
-const rpcUrl = process.env.REACT_APP_NETWORK_URL || "http://127.0.0.1:8545";
+//const rpcUrl = process.env.REACT_APP_NETWORK_URL || "https://ropsten.infura.io/v3/b36c7340469c4e99805405e231f84069"; //HERE!!!!!
+
+const rpcUrl = process.env.REACT_APP_NETWORK_URL || "http://127.0.0.1:8545"; //HERE!!!!!
 const networkId = parseInt(process.env.REACT_APP_NETWORK_ID || "1337", 10);
+
+//const rpcUrl = process.env.REACT_APP_NETWORK_URL || "http://127.0.0.1:7545"; //HERE!!!!!
+//const networkId = parseInt(process.env.REACT_APP_NETWORK_ID || "5777", 10);
 
 export const getReadOnlyWeb3 = async () => {
   const engine = new ProviderEngine();
