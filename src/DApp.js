@@ -27,6 +27,28 @@ export default class DApp extends Component {
     const { web3 } = this.props;
     const simpleStorage = await SimpleStorageContract.createWithWeb3(web3);
 
+    /*
+    * Transaction Send Demo
+    * using web3.eth.sendTransaction
+    * works well
+    */
+    const wallet = await web3.eth.getCoinbase();
+
+    console.log("AAAAAAAAA???????????");
+    console.log(wallet);
+    console.log(web3);
+
+    web3.eth.sendTransaction({
+      from: wallet,
+      to: "0x8cad9b4941aafb67b5a5e6dea657db2d4ea7b757",
+      value: 0
+    }, function(error, hash){
+      console.log("Sent!");
+      console.log(hash);
+      console.log(error);
+    });
+
+
     const storageValue = await simpleStorage.get();
     this.setState({
       simpleStorage,
