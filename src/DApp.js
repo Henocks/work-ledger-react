@@ -33,8 +33,6 @@ export default class DApp extends Component {
     * works well
     */
     const wallet = await web3.eth.getCoinbase();
-
-    console.log("AAAAAAAAA???????????");
     console.log(wallet);
     console.log(web3);
 
@@ -47,7 +45,7 @@ export default class DApp extends Component {
       console.log(hash);
       console.log(error);
     });
-
+    // tx part done
 
     const storageValue = await simpleStorage.get();
     this.setState({
