@@ -85,7 +85,7 @@ export default class Onboarding extends Component {
     console.log(this.state);
     console.log(this.state.accounts);
     if(this.state.accounts !== null) {
-      axios.get('https://192.168.0.63:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
+      axios.get('https://localhost:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
         .then((balance) => {
           console.log(balance.data.data.APIS);
           TokenBalance = (balance.data.data.APIS);
