@@ -72,12 +72,15 @@ export default class Onboarding extends Component {
   onCheck = () => {
     console.log(this.state);
     console.log(this.state.accounts);
-    if(this.state.accounts !== null) {
-      axios.get('https://localhost:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
+    if (this.state.accounts !== null) {
+      axios.get('https://192.168.0.63:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2, ))
         .then((balance) => {
-          console.log(balance.data.data.APIS);
-          this.state.tokenBalance = (balance.data.data.APIS);
-          document.getElementById('balance').innerHTML = "Token Balance : " + this.state.tokenBalance;
+          axios.get('https://192.168.0.63:3001/blocknumber')
+            .then((blockNum) => {
+              console.log(balance.data.data.APIS);
+              this.state.tokenBalance = (balance.data.data.APIS);
+              document.getElementById('balance').innerHTML = "Token Balance : " + this.state.tokenBalance + "(Block " + blockNum.data.data.blocknumber + ")";
+            });
         });
     }
   }
