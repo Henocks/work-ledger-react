@@ -34,11 +34,13 @@ export default class Onboarding extends Component {
       const web3 = await wallet.getWeb3();
 
       //Wallet test part
+      /*
       web3.eth.getAccounts().then((result) => {
         console.log(result);
-        axios.get('http://192.168.0.63:3001/balance/' + result.toString().substring(2,))
+        axios.get('https://192.168.0.63:3001/balance/' + result.toString().substring(2,))
         .then((balance) => console.log(balance.data.data.APIS));
       });
+      */
       //Wallet
 
       const accounts = await new Promise((resolve, reject) => {
@@ -83,7 +85,7 @@ export default class Onboarding extends Component {
     console.log(this.state);
     console.log(this.state.accounts);
     if(this.state.accounts !== null) {
-      axios.get('http://192.168.0.63:3001/balance/' + this.state.accounts.toString().substring(2,))
+      axios.get('https://192.168.0.63:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
         .then((balance) => {
           console.log(balance.data.data.APIS);
           APISBalance = (balance.data.data.APIS);
