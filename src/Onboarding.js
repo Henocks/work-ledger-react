@@ -18,8 +18,12 @@ export default class Onboarding extends Component {
     error: null,
     accounts: null,
     selectedWalletIndex: -1,
-    selectedAccountIndex: 0
+    selectedAccountIndex: 0,
+    tokenBalance: 0
   };
+  //ref test. plz remove
+  token = React.createRef();
+  //
 
   onWalletChange = async e => {
     const selectedWalletIndex = parseInt(e.target.value, 10);
@@ -65,6 +69,19 @@ export default class Onboarding extends Component {
     this.setState({ selectedAccountIndex: parseInt(e.target.value, 10) });
   };
 
+  onCheck = () => {
+    console.log(this.state);
+    console.log(this.state.accounts);
+    if(this.state.accounts !== null) {
+      axios.get('https://localhost:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
+        .then((balance) => {
+          console.log(balance.data.data.APIS);
+          this.state.tokenBalance = (balance.data.data.APIS);
+          document.getElementById('balance').innerHTML = "Token Balance : " + this.state.tokenBalance;
+        });
+    }
+  }
+
   onDone = () => {
     const { web3, accounts, selectedAccountIndex } = this.state;
     const account = accounts && accounts[selectedAccountIndex];
@@ -79,23 +96,11 @@ export default class Onboarding extends Component {
       selectedAccountIndex,
       selectedWalletIndex
     } = this.state;
-
-    let TokenBalance = 0;
-
-    console.log(this.state);
-    console.log(this.state.accounts);
-    if(this.state.accounts !== null) {
-      axios.get('https://localhost:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
-        .then((balance) => {
-          console.log(balance.data.data.APIS);
-          TokenBalance = (balance.data.data.APIS);
-        });
-    }
     //test part
     return (
       <div className="Onboarding">
         <section>
-          <h1>Token Balance : {TokenBalance}</h1>
+          <h1 id='balance'></h1>
           <h2>1. select a wallet</h2>
           <div className="wallets">
             {wallets.map((wallet, i) => (
@@ -132,7 +137,8 @@ export default class Onboarding extends Component {
               ))}
             </div>
             <footer>
-              <button onClick={this.onDone}>Connect</button>
+              <button onClick={this.onDone}>Connect</button> <br />
+              <button onClick={this.onCheck}>Check Token</button>
             </footer>
           </section>
         ) : null}
