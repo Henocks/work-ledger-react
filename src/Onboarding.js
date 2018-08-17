@@ -80,7 +80,7 @@ export default class Onboarding extends Component {
       selectedWalletIndex
     } = this.state;
 
-    let APISBalance = 0;
+    let TokenBalance = 0;
 
     console.log(this.state);
     console.log(this.state.accounts);
@@ -88,14 +88,14 @@ export default class Onboarding extends Component {
       axios.get('https://192.168.0.63:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2,))
         .then((balance) => {
           console.log(balance.data.data.APIS);
-          APISBalance = (balance.data.data.APIS);
+          TokenBalance = (balance.data.data.APIS);
         });
     }
     //test part
     return (
       <div className="Onboarding">
         <section>
-          <h1>APIS Balance : {APISBalance}</h1>
+          <h1>Token Balance : {TokenBalance}</h1>
           <h2>1. select a wallet</h2>
           <div className="wallets">
             {wallets.map((wallet, i) => (
