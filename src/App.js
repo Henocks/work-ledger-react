@@ -27,7 +27,7 @@ export default class App extends Component {
   render() {
     const { account, web3 } = this.state;
     
-    axios.get('http://localhost:3001/blocknumber')
+    axios.get('https://localhost:3001/blocknumber')
     .then((blockNumber) => console.log(blockNumber));
 
     return (
