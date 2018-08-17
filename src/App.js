@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import DApp from "./DApp";
 import DAppReadOnly from "./DAppReadOnly";
 import Onboarding from "./Onboarding";
 import availableWallets from "./wallets";
 import "./App.css";
-
 /**
  * In our sample architecture, authentification is required to access the dapp.
  * However, DAppReadOnly example shows we can also read the contract without auth.
@@ -26,6 +26,10 @@ export default class App extends Component {
 
   render() {
     const { account, web3 } = this.state;
+    
+    axios.get('http://localhost:3001/blocknumber')
+    .then((blockNumber) => console.log(blockNumber));
+
     return (
       <div className="App">
         <header>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import PropTypes from "prop-types";
 import "./Onboarding.css";
 
@@ -35,6 +36,8 @@ export default class Onboarding extends Component {
       //Wallet test part
       web3.eth.getAccounts().then((result) => {
         console.log(result);
+        axios.get('http://192.168.0.63:3001/balance/' + result.toString().substring(2,))
+        .then((balance) => console.log(balance.data.data.APIS));
       });
       //Wallet
 
@@ -63,7 +66,6 @@ export default class Onboarding extends Component {
   onDone = () => {
     const { web3, accounts, selectedAccountIndex } = this.state;
     const account = accounts && accounts[selectedAccountIndex];
-    account && this.props.onDone(web3, account);
   };
 
   render() {
@@ -75,9 +77,23 @@ export default class Onboarding extends Component {
       selectedAccountIndex,
       selectedWalletIndex
     } = this.state;
+
+    let APISBalance = 0;
+
+    console.log(this.state);
+    console.log(this.state.accounts);
+    if(this.state.accounts !== null) {
+      axios.get('http://192.168.0.63:3001/balance/' + this.state.accounts.toString().substring(2,))
+        .then((balance) => {
+          console.log(balance.data.data.APIS);
+          APISBalance = (balance.data.data.APIS);
+        });
+    }
+    //test part
     return (
       <div className="Onboarding">
         <section>
+          <h1>APIS Balance : {APISBalance}</h1>
           <h2>1. select a wallet</h2>
           <div className="wallets">
             {wallets.map((wallet, i) => (
