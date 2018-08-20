@@ -69,16 +69,29 @@ export default class Onboarding extends Component {
     this.setState({ selectedAccountIndex: parseInt(e.target.value, 10) });
   };
 
-  onCheck = () => {
-    console.log(this.state);
-    console.log(this.state.accounts);
+  /*
+  * Token checking function
+  * triggered by button
+  */
+
+  onCheck = () => {                    // Check Token butten onclick event
+    console.log(this.state);           // for debug
+    console.log(this.state.accounts);  // for debug
     if (this.state.accounts !== null) {
+      // http server get request(send account address which is selected, cut out first two letter '0x' - which can't be used on APIS network)
       axios.get('https://192.168.0.63:3001/balance/' + this.state.accounts[this.state.selectedAccountIndex].toString().substring(2, ))
         .then((balance) => {
+          // NOTE : callback hell
+          // get blocknumber via http server get request.
           axios.get('https://192.168.0.63:3001/blocknumber')
             .then((blockNum) => {
+              /*
+              * Result Data structure : Object.data.data.(attr) - final data
+              * ex) balance.data.data.APIS / blockNum.data.data.blocknumber
+              */ 
               console.log(balance.data.data.APIS);
               this.state.tokenBalance = (balance.data.data.APIS);
+              // mofify document
               document.getElementById('balance').innerHTML = "Token Balance : " + this.state.tokenBalance + "(Block " + blockNum.data.data.blocknumber + ")";
             });
         });

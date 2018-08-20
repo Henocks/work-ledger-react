@@ -39,7 +39,7 @@ export default [
     }
   },
   {
-    name: "web3 runtime (MetaMask / Mist)",
+    name: "web3 runtime (MetaMask / Mist)", 
     // detect extension like Mist/MetaMask
     getWeb3: async () => {
       const web3 = window.web3;
